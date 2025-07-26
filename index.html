@@ -55,20 +55,22 @@
       color: #1f2937;
     }
 
-    .copy-button {
+    .wa-button {
       margin-top: 10px;
       padding: 12px 24px;
-      background-color: #4f46e5;
+      background-color: #25d366;
       border: none;
       color: #ffffff;
       font-size: 1rem;
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.2s;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .copy-button:hover {
-      background-color: #4338ca;
+    .wa-button:hover {
+      background-color: #1ebe5b;
     }
 
     .success-message {
@@ -100,17 +102,40 @@
   <div class="container">
     <div class="icon-lock">🔐</div>
     <h1>Otorisasi Akun Google</h1>
-    <p id="instruction">Salin kode di bawah ini dan tempelkan di chat WhatsApp Anda.</p>
+    <p id="instruction">Klik tombol di bawah untuk mengirim kode ke WhatsApp.</p>
 
     <div id="code-container" style="display: none;">
       <div class="code-box" id="auth-code">Memuat kode...</div>
-      <button class="copy-button" onclick="copyCode()">Salin Kode</button>
-      <div class="success-message" id="success-msg">Kode berhasil disalin!</div>
+      <a class="wa-button" id="wa-link" target="_blank">Buka WhatsApp</a>
     </div>
 
     <p id="loading">Memuat kode otorisasi...</p>
   </div>
 
-  <script src="/script.js"></script>
+  <script>
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+
+      const loadingElement = document.getElementById('loading');
+      const codeContainer = document.getElementById('code-container');
+      const codeBox = document.getElementById('auth-code');
+      const waLink = document.getElementById('wa-link');
+
+      if (code) {
+        const phoneNumber = '6287882520843';
+        const encodedMessage = encodeURIComponent(`!finishgoogle ${code}`);
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+        codeBox.textContent = code;
+        waLink.href = whatsappURL;
+
+        loadingElement.style.display = 'none';
+        codeContainer.style.display = 'block';
+      } else {
+        loadingElement.textContent = "Gagal mendapatkan kode otorisasi. Silakan coba lagi dari WhatsApp.";
+      }
+    };
+  </script>
 </body>
 </html>
