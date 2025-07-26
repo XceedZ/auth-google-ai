@@ -99,11 +99,11 @@
 <body>
   <div class="container">
     <div class="icon-lock">🔐</div>
-    <h1>Otorisasi Google untuk Chellyn AI</h1>
-    <p id="instruction">Silakan salin kode berikut dan kirimkan ke chat WhatsApp Anda untuk menyelesaikan proses otorisasi.</p>
+    <h1>Otorisasi Akun Google</h1>
+    <p id="instruction">Salin kode di bawah ini dan tempelkan di chat WhatsApp Anda.</p>
 
     <div id="code-container" style="display: none;">
-      <div class="code-box" id="auth-code">123456</div>
+      <div class="code-box" id="auth-code">Memuat kode...</div>
       <button class="copy-button" onclick="copyCode()">Salin Kode</button>
       <div class="success-message" id="success-msg">Kode berhasil disalin!</div>
     </div>
@@ -111,23 +111,6 @@
     <p id="loading">Memuat kode otorisasi...</p>
   </div>
 
-  <script>
-    // Simulasi kode (hapus bagian ini jika Anda menggunakan script backend)
-    setTimeout(() => {
-      const code = 'AI-4D82-19Z6';
-      document.getElementById('auth-code').innerText = code;
-      document.getElementById('code-container').style.display = 'block';
-      document.getElementById('loading').style.display = 'none';
-    }, 1500);
-
-    function copyCode() {
-      const code = document.getElementById("auth-code").innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        const msg = document.getElementById("success-msg");
-        msg.style.display = "block";
-        setTimeout(() => (msg.style.display = "none"), 2500);
-      });
-    }
-  </script>
+  <script src="/script.js"></script>
 </body>
 </html>
